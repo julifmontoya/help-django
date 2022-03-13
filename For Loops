@@ -1,0 +1,41 @@
+ -----------
+  Loop #1
+ -----------
+ options_dict = options_serializer.data
+ new_option = []
+ 
+ for i in range(len(options_dict)):
+      new_option.append({
+          "id": options_dict[i]['id'],
+          "title": options_dict[i]['title'],
+          "description": options_dict[i]['description'],
+          "included_not_included": options_dict[i]['included_not_included']
+      })
+      new = []
+      for j in range(len(options_dict[i]["tours_days_rates"])):
+          if(options_dict[i]["tours_days_rates"][j]['date']) == date_search:
+              new.append(
+                  {"id": options_dict[i]["tours_days_rates"][j]['id'],                             
+                  "date": options_dict[i]["tours_days_rates"][j]['date'],
+                  "price_adult": options_dict[i]["tours_days_rates"][j]['price_adult'],
+                  "price_child": options_dict[i]["tours_days_rates"][j]['price_child'],
+                  "price_infant": options_dict[i]["tours_days_rates"][j]['price_infant'],
+                  "total_price": int(options_dict[i]["tours_days_rates"][j]['price_adult'])*int(adult) + int(options_dict[i]["tours_days_rates"][j]['price_child'])*int(child) + int(options_dict[i]["tours_days_rates"][j]['price_infant'])*int(infant),
+                  "quota": options_dict[i]["tours_days_rates"][j]['quota']
+                  })
+              new_option[i]['tours_days_rates'] = new
+          else:
+              new_option[i]['tours_days_rates'] = []
+              
+-----------
+ Loop #2
+-----------
+options_dict = options_serializer.data
+ 
+for option in options_dict:
+   new_option.append(
+       {"id": option['id'], "title": option['title'], "description": option['description'], "included_not_included": option['included_not_included']})
+   for rate in option["tours_days_rates"]:
+       if rate['date'] == date_search:
+           print("***", rate['date'])
+           
